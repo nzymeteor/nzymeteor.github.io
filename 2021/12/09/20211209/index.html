@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一点关于小小爬虫（读者需要对基本的浏览器操作，python用法和电脑知识有所了解）首先我们想到如果，一个东西可以在网页上被我们看见，那么他必然将对应的数据包传输到了我的电脑上，那么我就可以直接拿下数据包，直接获取数据。 首先我们需要一个requests包，进行request请求 首先举个例子，我们如何爬取百度的首页，第一步我们需要得到百度的url即 “https:&#x2F;&#x2F;www.baidu.com&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫专题01">
+<meta property="og:url" content="http://example.com/2021/12/09/20211209/index.html">
+<meta property="og:site_name" content="聂泽宇的blog">
+<meta property="og:description" content="一点关于小小爬虫（读者需要对基本的浏览器操作，python用法和电脑知识有所了解）首先我们想到如果，一个东西可以在网页上被我们看见，那么他必然将对应的数据包传输到了我的电脑上，那么我就可以直接拿下数据包，直接获取数据。 首先我们需要一个requests包，进行request请求 首先举个例子，我们如何爬取百度的首页，第一步我们需要得到百度的url即 “https:&#x2F;&#x2F;www.baidu.com&amp;q">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-09T03:09:42.000Z">
+<meta property="article:modified_time" content="2021-12-09T07:50:45.610Z">
+<meta property="article:author" content="聂泽宇">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/09/20211209/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>爬虫专题01 | 聂泽宇的blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">聂泽宇的blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">--开局一张嘴，故事全靠编</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/09/20211209/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="聂泽宇">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="聂泽宇的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          爬虫专题01
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-09 11:09:42 / 修改时间：15:50:45" itemprop="dateCreated datePublished" datetime="2021-12-09T11:09:42+08:00">2021-12-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一点关于小小爬虫"><a href="#一点关于小小爬虫" class="headerlink" title="一点关于小小爬虫"></a>一点关于小小爬虫</h2><p>（读者需要对基本的浏览器操作，python用法和电脑知识有所了解）<br>首先我们想到如果，一个东西可以在网页上被我们看见，那么他必然将对应的数据包传输到了我的电脑上，那么我就可以直接拿下数据包，直接获取数据。</p>
+<p>首先我们需要一个requests包，进行request请求</p>
+<p>首先举个例子，我们如何爬取百度的首页，第一步我们需要得到百度的url即 “https://<a target="_blank" rel="noopener" href="http://www.baidu.com&quot;/">www.baidu.com&quot;</a> ，http代表ipv4，https代表ipv6，由于我们是爬虫访问，不是浏览器访问，所以说并不会自动补全http和https，所以说必须加上。第二步，百度对检测访问者的身份，所以说，我们需要自己手动加上请求头用户代理，一般来说可以用自己的真实ip，也可以导包“fake_useragent”与“random”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> FakeUserAgent</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># headers_=&#123;&quot;User-Agent&quot;:FakeUserAgent().random&#125;</span></span><br><span class="line">    headers_=&#123;<span class="string">&quot;User-Agent&quot;</span>:<span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    url_1=<span class="string">&quot;https://www.baidu.com&quot;</span></span><br><span class="line">    response=requests.get(url_1,headers=headers_,)</span><br><span class="line">    response.encoding=<span class="string">&quot;utf-8&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(response.content)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;baidu.html&quot;</span>,<span class="string">&quot;w&quot;</span>,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(response.text)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果读者以及看懂了网页案例，那么我们不妨升级，我想要获得百度搜索的结果的网页，对url进行分析，那么不难得到它其中有一个wd参数，我们只需要一个params参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> FakeUserAgent</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># headers_=&#123;&quot;User-Agent&quot;:FakeUserAgent().random&#125;</span></span><br><span class="line">    headers_=&#123;<span class="string">&quot;User-Agent&quot;</span>:<span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    url_1=<span class="string">&quot;https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&quot;</span></span><br><span class="line">    params_=&#123;<span class="string">&quot;wd&quot;</span>:<span class="string">&quot;电磁炮&quot;</span>&#125;</span><br><span class="line">    response=requests.get(url_1,headers=headers_,params=params_)</span><br><span class="line">    response.encoding=<span class="string">&quot;utf-8&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(response.content)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;baidu.html&quot;</span>,<span class="string">&quot;w&quot;</span>,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(response.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接着向下，如果我想要得到某张图片某个视频某个音频，那么我们需要对数据包进行分析，得到图片的url，如何将其爬取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url_=<span class="string">&quot;&quot;</span></span><br><span class="line">    headers_=&#123;<span class="string">&quot;&#x27;&#125;</span></span><br><span class="line"><span class="string">    res_=requests.get(url_,headers=headers_)</span></span><br><span class="line"><span class="string">    with open(&quot;</span>.mp4/jpg/...<span class="string">&quot;,&quot;</span>w<span class="string">b&quot;) as f:</span></span><br><span class="line"><span class="string">        f.write(res_.content)</span></span><br></pre></td></tr></table></figure>
+<p>由此我们可以思考的，我既然可以在网上听歌，那么我是不是也可以爬取网易云或者是什么音乐播放器的会员音频呢，因为这种音乐我们不开VIP是不能直接听的，所以说我们不难直接爬取音频文件，但是通过观察，我们可以看它的mv，那么我们思考到，我们为什么不从mv中提取音乐呢<br>可以自己尝试，这里不加赘述。</p>
+<p>那么我们由此联想到，我们可以爬取bilibili里面的视频呢，通过分析数据包，和初步的爬取，我们发现bilibili是将音频和视频分开的，那么我们需要将其合成</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> moviepy.editor <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url_=<span class="string">&quot;&quot;</span></span><br><span class="line">    headers_=&#123;<span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    res_=requests.get(url_,headers=headers_)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;.mp4&quot;</span>,<span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(res_.content)</span><br><span class="line">    url_=<span class="string">&quot;&quot;</span></span><br><span class="line">    res_=requests.get(url_,headers=headers_)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;.acc&quot;</span>,<span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    	f.write(res_.content)</span><br><span class="line">    os.system(<span class="string">&#x27;C:\/Users\lenovo\Desktop\代码\python\/ffmpeg-N-102852-g758e2da289-win64-gpl-shared\/bin\/ffmpeg.exe -i &quot;.mp4&quot; -i &quot;.aac&quot; -c:v copy -c:a copy -bsf:a aac_adtstoasc .mp4 -loglevel quiet&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;成功&quot;</span>)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/07/20211207/" rel="prev" title="创世记">
+      <i class="fa fa-chevron-left"></i> 创世记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E5%85%B3%E4%BA%8E%E5%B0%8F%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-number">1.</span> <span class="nav-text">一点关于小小爬虫</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">聂泽宇</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">聂泽宇</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
